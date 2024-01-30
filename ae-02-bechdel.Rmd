@@ -1,6 +1,6 @@
 ---
 title: "Bechdel"
-author: "___"
+author: "Annie Hou"
 output: 
   html_document: 
     fig_height: 4
@@ -33,7 +33,7 @@ bechdel90_13 <- bechdel %>%
   filter(between(year, 1990, 2013))
 ```
 
-There are `___` such movies.
+There are `r nrow(bechdel90_13)` such movies.
 
 The financial variables we'll focus on are the following:
 
@@ -65,7 +65,7 @@ Next, let's take a look at how median budget and gross vary by a more detailed i
 
 ```{r message = FALSE}
 bechdel90_13 %>%
-  #group_by(___) %>%
+  group_by(clean_test) %>%
   summarise(med_budget = median(budget_2013),
             med_domgross = median(domgross_2013, na.rm = TRUE),
             med_intgross = median(intgross_2013, na.rm = TRUE))
@@ -93,11 +93,11 @@ Below is a visualization of the return on investment by test result, however it'
 ```{r warning = FALSE}
 
 ggplot(data = bechdel90_13, 
-       mapping = aes(x = clean_test, y = roi, color = binary)) +
+       mapping = aes(x = clean_test, y = roi, color = clean_test)) +
   geom_boxplot() +
   labs(title = "Return on investment vs. Bechdel test result",
        x = "Detailed Bechdel result",
-       y = "___",
+       y = "Return on investment",
        color = "Binary Bechdel result")
 ```
 
@@ -109,17 +109,17 @@ bechdel90_13 %>%
   select(title, budget_2013, domgross_2013, year)
 ```
 
-Zooming in on the movies with `roi < ___` provides a better view of how the medians across the categories compare:
+Zooming in on the movies with `roi < 50` provides a better view of how the medians across the categories compare:
 
 ```{r warning = FALSE}
 ggplot(data = bechdel90_13, mapping = aes(x = clean_test, y = roi, color = binary)) +
   geom_boxplot() +
   labs(title = "Return on investment vs. Bechdel test result",
-       subtitle = "___", # Something about zooming in to a certain level
+       subtitle = "Zooming in on the movies with roi < 50", # Something about zooming in to a certain level
        x = "Detailed Bechdel result",
        y = "Return on investment",
        color = "Binary Bechdel result") +
-  coord_cartesian(ylim = c(0, 1000))   # modify this 1000
+  coord_cartesian(ylim = c(0, 50))   # modify this 1000
 ```
 
 <br> 
